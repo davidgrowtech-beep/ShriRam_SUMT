@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>Learn Advance Skills by Shri Ram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+Devanagari:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B1220;--bg-alt:#101A2C;--card:#131F35;--line:#22314B;--gold:#D4AF6A;--gold-bright:#F0C878;--green:#2FBF71;--red:#E5484D;--text:#EDEFF3;--muted:#8B93A7;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+.ta{font-family:'Noto Sans Devanagari','IBM Plex Sans',sans-serif;}
+.en{font-family:'Poppins',sans-serif;}
+#page{max-width:480px;margin:0 auto;padding-bottom:env(safe-area-inset-bottom);position:relative;
+  background:radial-gradient(120% 60% at 50% 0%,rgba(212,175,106,.10),transparent 60%);}
+
+header.top{display:flex;align-items:center;gap:10px;padding:16px 18px;padding-top:max(16px,env(safe-area-inset-top));border-bottom:1px solid var(--line);}
+.logo{width:42px;height:42px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold);}
+.brandtext{line-height:1.25;}
+.brandtext .en{font-size:15px;font-weight:700;}
+.brandtext .ta{font-size:11px;color:var(--gold-bright);}
+
+.hero{padding:30px 20px 26px;text-align:center;}
+.heroPhoto{width:104px;height:104px;border-radius:50%;object-fit:cover;margin:0 auto 16px;border:3px solid var(--gold);box-shadow:0 0 0 6px rgba(212,175,106,.12),0 12px 28px rgba(0,0,0,.5);}
+.eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.6px;color:var(--gold-bright);border:1px solid var(--gold);border-radius:20px;padding:5px 14px;margin-bottom:14px;text-transform:uppercase;}
+.hero h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:27px;line-height:1.28;color:#fff;}
+.hero h1 span{color:var(--gold-bright);}
+.taLine{font-family:'Noto Sans Devanagari',sans-serif;font-weight:600;font-size:16.5px;margin-top:10px;line-height:1.6;}
+.subEn{color:var(--muted);font-size:13.5px;margin-top:10px;line-height:1.6;}
+
+.ctaWrap{margin-top:20px;}
+.ctaBtn{display:block;width:100%;text-align:center;padding:15px 18px;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:16px;color:#0B1220;
+  background:linear-gradient(135deg,var(--gold-bright),var(--gold));box-shadow:0 10px 24px -8px rgba(212,175,106,.55);cursor:pointer;touch-action:manipulation;}
+.ctaBtn .ta{display:block;font-weight:600;font-size:12.5px;margin-top:2px;color:#1a2436;}
+.ctaBtn:active{transform:scale(.98);}
+.ctaBtn.locked{opacity:.55;cursor:default;box-shadow:none;filter:grayscale(.4);}
+.microcopy{font-size:11px;color:var(--muted);margin-top:8px;}
+.statusTxt{font-size:12px;color:var(--gold-bright);margin-top:8px;line-height:1.6;}
+.iabanner{display:none;margin:14px 18px 0;padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.5;color:#ffe9a8;background:rgba(255,203,71,.10);border:1px solid rgba(255,203,71,.3);text-align:center;}
+
+.points,.benefits{padding:8px 18px 28px;}
+h2{font-family:'Poppins',sans-serif;font-size:19px;text-align:center;color:#fff;}
+h2 .ta{display:block;font-size:13px;color:var(--gold-bright);font-weight:600;margin-top:4px;}
+.pointCards,.benList{margin-top:18px;display:flex;flex-direction:column;gap:12px;}
+.pointCard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:14px;align-items:flex-start;position:relative;overflow:hidden;}
+.pointCard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);}
+.pointCard.g::before{background:var(--green);}
+.pointMark{width:38px;height:38px;min-width:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:800;font-size:16px;background:var(--bg-alt);border:1px solid var(--gold);color:var(--gold-bright);}
+.pointCard.g .pointMark{border-color:var(--green);color:var(--green);}
+.pointCard .en{font-weight:700;font-size:14.5px;color:#fff;}
+.pointCard .ta,.benItem .ta{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.5;}
+.benItem{display:flex;gap:10px;align-items:flex-start;background:var(--bg-alt);border:1px solid var(--line);border-radius:12px;padding:12px 14px;}
+.tick{width:20px;height:20px;min-width:20px;border-radius:50%;background:rgba(47,191,113,.15);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-top:1px;}
+.benItem .en{font-size:13.5px;font-weight:600;color:#fff;}
+
+.finalCta{padding:8px 18px 34px;text-align:center;}
+.finalCta .card{background:radial-gradient(120% 140% at 50% 0%,rgba(212,175,106,.14),rgba(19,31,53,.9));border:1px solid var(--gold);border-radius:18px;padding:26px 20px;}
+.finalCta h3{font-family:'Poppins',sans-serif;font-size:19px;color:#fff;}
+.finalCta h3 .ta{display:block;font-size:14px;color:var(--gold-bright);margin-top:6px;font-weight:600;}
+
+footer{padding:22px 20px 30px;text-align:center;border-top:1px solid var(--line);}
+.agencyBlock{font-size:12px;color:var(--muted);line-height:1.7;}
+.agencyBlock b{color:var(--text);}
+.agencyBlock a{color:var(--gold-bright);}
+.disclaimer{font-size:10.5px;color:#5C6479;margin-top:14px;line-height:1.6;}
+.disclaimer .ta{display:block;margin-top:5px;}
+@media(min-width:601px){#page{box-shadow:0 0 60px rgba(0,0,0,.5);}}
+</style>
+
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2585533058575642');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2585533058575642&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+<div id="page">
+
+  <header class="top">
+    <img class="logo" src="SR.jpg" alt="Shri Ram">
+    <div class="brandtext">
+      <div class="en">Shri Ram</div>
+      <div class="ta">Learn Advance Skills</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img class="heroPhoto" src="SR.jpg" alt="Shri Ram">
+    <div class="eyebrow">Free Telegram Community</div>
+    <h1>Learn Advance Skills by <span>Shri Ram</span></h1>
+    <div class="taLine">श्री राम के साथ एडवांस स्किल्स आसानी से सीखें।</div>
+    <div class="subEn">Simple, practical lessons explained step by step. Join our Telegram channel and start learning today.</div>
+    <div class="ctaWrap">
+      <a href="#" class="jnBtn ctaBtn locked" rel="noopener noreferrer">
+        Join Free — Telegram
+        <span class="ta">अभी टेलीग्राम से जुड़ें</span>
+      </a>
+      <div class="statusTxt"></div>
+      <div class="microcopy">100% Free to join · जुड़ना बिल्कुल मुफ़्त</div>
+    </div>
+  </section>
+
+  <div class="iabanner" id="iaBanner">⚠️ Tap the ⋯ menu at the top → "Open in Browser", then press the button.<br>ऊपर ⋯ मेनू पर टैप करें → "Open in Browser", फिर बटन दबाएँ।</div>
+
+  <section class="points">
+    <h2>What You Will Get<span class="ta">आपको क्या मिलेगा?</span></h2>
+    <div class="pointCards">
+      <div class="pointCard">
+        <div class="pointMark">1</div>
+        <div><div class="en">Learn</div><div class="ta">ज़रूरी advanced skills को आसान तरीके से step by step सीखें।</div></div>
+      </div>
+      <div class="pointCard g">
+        <div class="pointMark">2</div>
+        <div><div class="en">Practice</div><div class="ta">Practical examples के ज़रिए सीखी हुई बातों को असल ज़िंदगी में अपनाएँ।</div></div>
+      </div>
+      <div class="pointCard">
+        <div class="pointMark">3</div>
+        <div><div class="en">Grow</div><div class="ta">Community support के साथ लगातार आगे बढ़ें।</div></div>
+      </div>
+    </div>
+    <div class="ctaWrap">
+      <a href="#" class="jnBtn ctaBtn locked" rel="noopener noreferrer">
+        Join Free — Telegram
+        <span class="ta">अभी टेलीग्राम से जुड़ें</span>
+      </a>
+      <div class="statusTxt"></div>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <h2>Why Join Us<span class="ta">हमसे क्यों जुड़ें?</span></h2>
+    <div class="benList">
+      <div class="benItem"><div class="tick">✓</div><div><div class="en">Regular learning updates in simple language</div><div class="ta">आसान भाषा में नियमित learning updates</div></div></div>
+      <div class="benItem"><div class="tick">✓</div><div><div class="en">Beginner friendly — no prior experience needed</div><div class="ta">Beginners के लिए बिल्कुल सही — पहले से अनुभव ज़रूरी नहीं</div></div></div>
+      <div class="benItem"><div class="tick">✓</div><div><div class="en">Learn together with a supportive community</div><div class="ta">सपोर्टिव community के साथ मिलकर सीखें</div></div></div>
+    </div>
+  </section>
+
+  <section class="finalCta">
+    <div class="card">
+      <h3>Start Learning Today<span class="ta">आज ही सीखना शुरू करें</span></h3>
+      <div class="ctaWrap" style="margin-top:16px;">
+        <a href="#" class="jnBtn ctaBtn locked" rel="noopener noreferrer">
+          Join Free — Telegram
+          <span class="ta">अभी टेलीग्राम से जुड़ें</span>
+        </a>
+        <div class="statusTxt"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="agencyBlock">
+      <b>Advertised by: SRS Marketing Agency</b><br>
+      Telegram: <a href="https://t.me/srsagency" target="_blank" rel="noopener">t.me/srsagency</a>
+    </div>
+    <div class="disclaimer">
+      This platform is only for educational purposes. It is not investment, trading or financial advice.
+      <span class="ta">यह प्लेटफ़ॉर्म केवल शैक्षिक उद्देश्य के लिए है। यह निवेश, ट्रेडिंग या वित्तीय सलाह नहीं है।</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* ================= FAKE-TRAFFIC FILTER =================
+   - No auto-redirect: Telegram opens only when the visitor taps a button
+   - Telegram link is not in the HTML; attached to buttons after ~1.5s, only for verified humans
+   - Bots / headless / automation: buttons stay locked, no link, no pixel event
+   - Device timezone outside India: buttons stay locked (INDIA_ONLY)
+   - Subscribe pixel: trusted click + real interaction + dwell time, once per 7 days
+   - Real anchor, no preventDefault/setTimeout for real users (keeps Telegram app hand-off)
+   - Facebook/Instagram in-app browser handling                                              */
+const INDIA_ONLY  = true;    // false = allow visitors from outside India
+const MOBILE_ONLY = false;   // true = block desktop visitors
+const UNLOCK_MS   = 1500;
+const DEDUPE_MS   = 7*24*60*60*1000;
+const STORE_KEY   = 'sr_subscribe_ts';
+const TG = ['https://t.', 'me/+BOpG1g', 'CGuDZlZTc9'].join('');
+
+const btns   = document.querySelectorAll('.jnBtn');
+const notes  = document.querySelectorAll('.statusTxt');
+const banner = document.getElementById('iaBanner');
+const ua     = navigator.userAgent || '';
+const pageLoadTime = Date.now();
+let humanSignal = false, hasFired = false;
+
+['mousemove','touchstart','scroll','keydown','pointerdown'].forEach(function(ev){
+  window.addEventListener(ev, function(e){ if(e && e.isTrusted) humanSignal = true; }, {once:true, passive:true});
+});
+
+function automationDetected(){
+  try{
+    if (navigator.webdriver) return true;
+    if (/HeadlessChrome|Puppeteer|Selenium|PhantomJS|Playwright|bot|crawler|crawl|spider|Googlebot|bingbot|facebookexternalhit|Lighthouse/i.test(ua)) return true;
+    if (!navigator.languages || navigator.languages.length === 0) return true;
+    if (window.outerWidth === 0 && window.outerHeight === 0) return true;
+    var mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+    if (!mobile && /Chrome/.test(ua) && navigator.plugins && navigator.plugins.length === 0) return true;
+    if (window.callPhantom || window._phantom || window.__nightmare) return true;
+  }catch(err){}
+  return false;
+}
+function isMobile(){ return /Android|iPhone|iPad|iPod|Mobile/i.test(ua); }
+function inIndia(){
+  try{
+    var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    if (!tz) return true;
+    return tz === 'Asia/Kolkata' || tz === 'Asia/Calcutta';
+  }catch(err){ return true; }
+}
+function alreadyCounted(){
+  try{ var t = parseInt(localStorage.getItem(STORE_KEY)||'0',10); return t && (Date.now()-t) < DEDUPE_MS; }catch(err){ return false; }
+}
+function markCounted(){ try{ localStorage.setItem(STORE_KEY, String(Date.now())); }catch(err){} }
+
+const isIAB     = /FBAN|FBAV|FB_IAB|FBIOS|Instagram/i.test(ua);
+const isAndroid = /Android/i.test(ua);
+const isIOS     = /iPhone|iPad|iPod/i.test(ua);
+
+function buildHref(){
+  if (isIAB && isAndroid){
+    return 'intent://' + TG.replace(/^https:\/\//,'') +
+           '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(TG) + ';end';
+  }
+  return TG;
+}
+if (isIAB && isIOS) banner.style.display = 'block';
+
+var blocked = '';
+if (automationDetected()) blocked = 'bot';
+else if (INDIA_ONLY && !inIndia()) blocked = 'geo';
+else if (MOBILE_ONLY && !isMobile()) blocked = 'desktop';
+
+var msg = blocked === 'geo' ? 'This community is currently only for visitors in India. · यह कम्युनिटी फ़िलहाल केवल भारत के विज़िटर्स के लिए है।'
+        : blocked === 'desktop' ? 'Please open this page on your mobile. · कृपया इस पेज को अपने मोबाइल पर खोलें।' : '';
+notes.forEach(function(n){ n.textContent = msg; });
+
+if (!blocked){
+  setTimeout(function(){
+    if (automationDetected()) return;
+    btns.forEach(function(b){ b.setAttribute('href', buildHref()); b.classList.remove('locked'); });
+  }, UNLOCK_MS);
+}
+
+btns.forEach(function(btn){
+  btn.addEventListener('click', function(e){
+    var href = btn.getAttribute('href') || '';
+    if (blocked || href === '#' || href === '' || !e.isTrusted || automationDetected()){
+      e.preventDefault();
+      return;
+    }
+    var dwellOk = (Date.now() - pageLoadTime) >= UNLOCK_MS;
+    if (dwellOk && humanSignal && !hasFired && !alreadyCounted() && typeof fbq === 'function'){
+      hasFired = true;
+      markCounted();
+      fbq('track','Subscribe',{content_name:'Telegram Community', button_click:true},{eventID:'telegram_subscribe_'+Date.now()});
+    }
+    /* no preventDefault: browser follows the anchor natively */
+  });
+});
+</script>
+</body>
+</html>
