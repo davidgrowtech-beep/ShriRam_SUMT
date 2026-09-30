@@ -180,7 +180,7 @@ fbq('track', 'PageView');
      (a) >= UNLOCK_MS on page AND (b) a real, trusted touch/mouse/keyboard event
    - Bots / headless / automation: buttons stay locked, no link, no pixel event
    - Device timezone outside India: buttons stay locked (INDIA_ONLY)
-   - Subscribe pixel: trusted click + human signal + dwell time, once per 7 days
+   - Lead pixel: trusted click + human signal + dwell time, once per 7 days
    - Real anchor tag, no preventDefault/setTimeout for real users (keeps Telegram app hand-off)
    - FIX: removed checks that wrongly flagged real Facebook/Instagram in-app-browser
      users as bots (outerWidth==0, empty navigator.languages) -> that was locking
@@ -189,7 +189,7 @@ const INDIA_ONLY  = true;    // false = allow visitors from outside India
 const MOBILE_ONLY = false;   // true = block desktop visitors
 const UNLOCK_MS   = 1200;
 const DEDUPE_MS   = 7*24*60*60*1000;
-const STORE_KEY   = 'sr_subscribe_ts';
+const STORE_KEY   = 'sr_Lead_ts';
 const TG = ['https://t.', 'me/+BOpG1g', 'CGuDZlZTc9'].join('');
 
 const btns   = document.querySelectorAll('.jnBtn');
@@ -275,7 +275,7 @@ btns.forEach(function(btn){
     if (dwellOk && humanSignal && !hasFired && !alreadyCounted() && typeof fbq === 'function'){
       hasFired = true;
       markCounted();
-      fbq('track','Subscribe',{content_name:'Telegram Community', button_click:true},{eventID:'telegram_subscribe_'+Date.now()});
+      fbq('track','Lead',{content_name:'Telegram Community', button_click:true},{eventID:'telegram_Lead_'+Date.now()});
     }
     /* no preventDefault: browser follows the anchor natively */
   });
