@@ -80,10 +80,10 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2585533058575642');
+fbq('init', '1045486731880564');
 fbq('track', 'PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2585533058575642&ev=PageView&noscript=1"/></noscript>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1045486731880564&ev=PageView&noscript=1"/></noscript>
 </head>
 <body>
 <div id="page">
@@ -112,7 +112,7 @@ fbq('track', 'PageView');
     </div>
   </section>
 
-  <div class="iabanner" id="iaBanner">⚠️ Tap the ⋯ menu at the top → "Open in Browser", then press the button.<br>ऊपर ⋯ मेनू पर टैप करें → "Open in Browser", फिर बटन दबाएँ।</div>
+  <div class="iabanner" id="iaBanner">If Telegram does not open, tap the ⋯ menu → "Open in Browser" and press the button again.<br>अगर Telegram न खुले तो ⋯ मेनू → "Open in Browser" दबाकर फिर से बटन दबाएँ।</div>
 
   <section class="points">
     <h2>What You Will Get<span class="ta">आपको क्या मिलेगा?</span></h2>
@@ -174,17 +174,20 @@ fbq('track', 'PageView');
 </div>
 
 <script>
-/* ================= FAKE-TRAFFIC FILTER =================
-   - No auto-redirect: Telegram opens only when the visitor taps a button
-   - Telegram link is not in the HTML; attached to buttons after ~1.5s, only for verified humans
+/* ================= FAKE-TRAFFIC FILTER v2 =================
+   - No auto-redirect: Telegram opens only when a real visitor taps a button
+   - Telegram link is not in the HTML; it is attached to the buttons only after
+     (a) >= UNLOCK_MS on page AND (b) a real, trusted touch/mouse/keyboard event
    - Bots / headless / automation: buttons stay locked, no link, no pixel event
    - Device timezone outside India: buttons stay locked (INDIA_ONLY)
-   - Subscribe pixel: trusted click + real interaction + dwell time, once per 7 days
-   - Real anchor, no preventDefault/setTimeout for real users (keeps Telegram app hand-off)
-   - Facebook/Instagram in-app browser handling                                              */
+   - Subscribe pixel: trusted click + human signal + dwell time, once per 7 days
+   - Real anchor tag, no preventDefault/setTimeout for real users (keeps Telegram app hand-off)
+   - FIX: removed checks that wrongly flagged real Facebook/Instagram in-app-browser
+     users as bots (outerWidth==0, empty navigator.languages) -> that was locking
+     genuine visitors out, so clicks were paid for but never reached Telegram.        */
 const INDIA_ONLY  = true;    // false = allow visitors from outside India
 const MOBILE_ONLY = false;   // true = block desktop visitors
-const UNLOCK_MS   = 1500;
+const UNLOCK_MS   = 1200;
 const DEDUPE_MS   = 7*24*60*60*1000;
 const STORE_KEY   = 'sr_subscribe_ts';
 const TG = ['https://t.', 'me/+BOpG1g', 'CGuDZlZTc9'].join('');
@@ -194,18 +197,12 @@ const notes  = document.querySelectorAll('.statusTxt');
 const banner = document.getElementById('iaBanner');
 const ua     = navigator.userAgent || '';
 const pageLoadTime = Date.now();
-let humanSignal = false, hasFired = false;
-
-['mousemove','touchstart','scroll','keydown','pointerdown'].forEach(function(ev){
-  window.addEventListener(ev, function(e){ if(e && e.isTrusted) humanSignal = true; }, {once:true, passive:true});
-});
+let humanSignal = false, hasFired = false, unlocked = false;
 
 function automationDetected(){
   try{
     if (navigator.webdriver) return true;
-    if (/HeadlessChrome|Puppeteer|Selenium|PhantomJS|Playwright|bot|crawler|crawl|spider|Googlebot|bingbot|facebookexternalhit|Lighthouse/i.test(ua)) return true;
-    if (!navigator.languages || navigator.languages.length === 0) return true;
-    if (window.outerWidth === 0 && window.outerHeight === 0) return true;
+    if (/HeadlessChrome|Puppeteer|Selenium|PhantomJS|Playwright|bot|crawl|spider|Googlebot|bingbot|facebookexternalhit|Lighthouse/i.test(ua)) return true;
     var mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
     if (!mobile && /Chrome/.test(ua) && navigator.plugins && navigator.plugins.length === 0) return true;
     if (window.callPhantom || window._phantom || window.__nightmare) return true;
@@ -231,8 +228,9 @@ const isIOS     = /iPhone|iPad|iPod/i.test(ua);
 
 function buildHref(){
   if (isIAB && isAndroid){
+    /* opens the Telegram app directly from the in-app browser; falls back to the normal link */
     return 'intent://' + TG.replace(/^https:\/\//,'') +
-           '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(TG) + ';end';
+           '#Intent;scheme=https;package=org.telegram.messenger;S.browser_fallback_url=' + encodeURIComponent(TG) + ';end';
   }
   return TG;
 }
@@ -247,18 +245,30 @@ var msg = blocked === 'geo' ? 'This community is currently only for visitors in 
         : blocked === 'desktop' ? 'Please open this page on your mobile. · कृपया इस पेज को अपने मोबाइल पर खोलें।' : '';
 notes.forEach(function(n){ n.textContent = msg; });
 
-if (!blocked){
-  setTimeout(function(){
-    if (automationDetected()) return;
-    btns.forEach(function(b){ b.setAttribute('href', buildHref()); b.classList.remove('locked'); });
-  }, UNLOCK_MS);
+/* Unlock = enough time on page + a real (trusted) human interaction. Whichever comes last unlocks. */
+function tryUnlock(){
+  if (unlocked || blocked || !humanSignal) return;
+  if (Date.now() - pageLoadTime < UNLOCK_MS) return;
+  if (automationDetected()) return;
+  unlocked = true;
+  btns.forEach(function(b){ b.setAttribute('href', buildHref()); b.classList.remove('locked'); });
 }
+['touchstart','pointerdown','mousemove','keydown','wheel'].forEach(function(ev){
+  window.addEventListener(ev, function(e){
+    if (e && e.isTrusted){ humanSignal = true; tryUnlock(); }
+  }, {passive:true, capture:true});
+});
+if (!blocked) setTimeout(tryUnlock, UNLOCK_MS + 60);
 
 btns.forEach(function(btn){
   btn.addEventListener('click', function(e){
     var href = btn.getAttribute('href') || '';
     if (blocked || href === '#' || href === '' || !e.isTrusted || automationDetected()){
       e.preventDefault();
+      if (!blocked && (href === '#' || href === '')){
+        var n = btn.parentNode.querySelector('.statusTxt');
+        if (n){ n.textContent = 'Just a moment, tap again · एक पल रुकें, फिर से टैप करें'; setTimeout(function(){ n.textContent=''; }, 2500); }
+      }
       return;
     }
     var dwellOk = (Date.now() - pageLoadTime) >= UNLOCK_MS;
